@@ -1,3 +1,21 @@
-ecommerce_homepage:
+_homepage:
     path:     /
-    defaults: { _controller: EcommerceBundle:Default:index }
+    defaults: { _controller: EcommerceBundle:Product:index }
+
+
+#ROUTE LINK TO PRODUCTS FEATURES
+_product:
+   path:  /product
+   defaults : { _controller: EcommerceBundle:Product:single }
+
+#ROUTE LINK TO CART FEATURES
+_cart:
+    path : /cart
+    defaults : { _controller: EcommerceBundle:Cart:index}
+_delivery:
+    path: /delivery
+    defaults : { _controller : EcommerceBundle:Cart:delivery}
+
+_validate:
+    path: /validate
+    defaults : { _controller : EcommerceBundle:Cart:validate}
