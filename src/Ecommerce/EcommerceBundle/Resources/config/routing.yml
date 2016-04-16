@@ -5,8 +5,13 @@ _homepage:
 
 #ROUTE LINK TO PRODUCTS FEATURES
 _product:
-   path:  /product
+   path:  /product/{id}
    defaults : { _controller: EcommerceBundle:Product:single }
+   requirements:
+       id: \d+
+_productAdd:
+    path : /product/add
+    defaults : {_controller: EcommerceBundle:Product:add}
 
 #ROUTE LINK TO CART FEATURES
 _cart:

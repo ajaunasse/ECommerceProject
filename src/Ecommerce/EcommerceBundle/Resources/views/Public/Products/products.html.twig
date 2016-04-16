@@ -5,14 +5,14 @@
             {% include ":modules:navigation.html.twig" %}
             <div class="span9">
                 <ul class="thumbnails">
-                    {% for i in 0..10 %}
+                    {% for product in products %}
                         <li class="span3">
                             <div class="thumbnail">
-                                <img src="../img/holder.png" alt="imgLogo" width="300" height="300">
+                                <img src="product.image" alt="imgLogo" width="300" height="300">
                                 <div class="caption">
-                                    <h4>Thumbnail label</h4>
-                                    <p>100,00 €</p>
-                                    <a class="btn btn-primary" href="{{ path('_product') }}">Plus d'infos</a>
+                                    <h4>{{ product.name }}</h4>
+                                    <p>{{ product.price }} €</p>
+                                    <a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
                                     <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
                                 </div>
                             </div>
