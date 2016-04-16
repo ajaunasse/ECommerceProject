@@ -2,7 +2,12 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            {% include ":modules:navigation.html.twig" %}
+            <div class="span3">
+                {% include ":modules:navigation.html.twig" %}
+                {% include ":modules:user.html.twig" %}
+
+            </div>
+
             <div class="span9">
                 <ul class="thumbnails">
                     {% for product in products %}
