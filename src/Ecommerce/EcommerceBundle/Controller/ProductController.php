@@ -48,7 +48,7 @@ class ProductController extends Controller
 
     public function singleAction($id){
         $em = $this->getDoctrine()->getManager() ;
-        $product = $em->getRepository('EcommerceBundle:Products')->findBy($id) ;
+        $product = $em->getRepository('EcommerceBundle:Products')->find($id) ;
 
         if(!$product) throw new NotFoundHttpException("Ce produit n'existe pas !") ;
 

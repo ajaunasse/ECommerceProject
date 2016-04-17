@@ -7,6 +7,7 @@ _homepage:
 _product:
     path : /Product/{id}
     defaults: {_controller: EcommerceBundle:Product:single}
+
 _category:
     path: /Category/{idCategory}/{name}
     defaults: {_controller: EcommerceBundle:Product:category }
@@ -20,6 +21,7 @@ _search:
 _cart:
     path : /cart
     defaults : { _controller: EcommerceBundle:Cart:index}
+
 _delivery:
     path: /delivery
     defaults : { _controller : EcommerceBundle:Cart:delivery}

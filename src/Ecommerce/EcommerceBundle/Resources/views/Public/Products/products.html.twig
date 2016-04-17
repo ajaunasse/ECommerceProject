@@ -21,7 +21,7 @@
                                 <img src="product.image" alt="imgLogo" width="300" height="300">
                                 <div class="caption">
                                     <h4>{{ product.name }}</h4>
-                                    <p>{{ product.price }} €</p>
+                                    <p>{{ product.price |tva(product.tva.multiplicate) }} €</p>
                                     <a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
                                     <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
                                 </div>

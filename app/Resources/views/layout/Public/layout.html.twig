@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8" />
 
-        <title>{% block title %}My E-Commerce!{% endblock %}</title>
-
+        <title>{% block title %}My E-Commerce {% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" />
