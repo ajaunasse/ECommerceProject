@@ -13,7 +13,7 @@ _category:
     requirements:
         id : \d+
 _search:
-    path: /search/{value}
+    path: /search
     defaults: {_controller: EcommerceBundle:Product:search }
 
 # ROUTE LINKED TO CART FEATURES

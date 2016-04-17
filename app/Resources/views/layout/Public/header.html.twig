@@ -9,10 +9,8 @@
             </button>
             <a class="brand" href="{{ path('_homepage') }}">My E-Commerce</a>
             <div class="nav-collapse collapse">
-                <form class="navbar-form form-search pull-right">
-                    <input id="Search" name="Search" type="text" class="input-medium search-query">
-                    <button type="submit" class="btn">Rechercher</button>
-                </form>
+
+                {% render(controller('EcommerceBundle:Product:formSearch')) %}
             </div>
         </div>
     </div>

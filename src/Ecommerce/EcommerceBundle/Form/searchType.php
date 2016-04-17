@@ -8,8 +8,30 @@
 
 namespace Ecommerce\EcommerceBundle\Form;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class searchType
+
+class SearchType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('search','text', array(
+            'label' => false,
+            'attr' => array(
+                'placeholder' => 'Search..',
+                'class' => 'input-medium search-query',
+            )
+        )) ;
+    }
 
+    public function getName()
+    {
+        return 'ecommerce_ecommercebundle_search' ;
+    }
 }
