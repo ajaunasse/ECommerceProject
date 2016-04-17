@@ -8,3 +8,6 @@ pages:
 ecommerce:
     resource: "@EcommerceBundle/Resources/config/routing.yml"
     prefix:   /
+admin:
+    resource : "@EcommerceBundle/Resources/config/routing_admin.yml"
+    prefix: /admin

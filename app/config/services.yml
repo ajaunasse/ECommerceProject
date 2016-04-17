@@ -4,6 +4,11 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    redirect.after.login:
+        class: Users\UsersBundle\Redirection\AfterLoginRedirection
+        arguments: ['@router','@security.authorization_checker']
+
+    app.form.registration:
+        class: Users\UsersBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }

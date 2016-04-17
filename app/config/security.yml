@@ -18,8 +18,9 @@ security:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
                 provider: fos_userbundle
-                csrf_provider: form.csrf_provider
+                csrf_provider: security.csrf.token_manager
                 default_target_path: /
+                success_handler: redirect.after.login
             logout:
                 path:   /users/logout
                 target: /

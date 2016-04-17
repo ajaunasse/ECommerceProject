@@ -1,0 +1,3 @@
+_homepage_admin:
+    path:     /
+    defaults: { _controller: EcommerceBundle:Admin:index }

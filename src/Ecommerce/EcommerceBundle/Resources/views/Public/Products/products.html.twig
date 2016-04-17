@@ -1,28 +1,28 @@
-{% extends ":layout:layout.html.twig" %}
+{% extends ":layout:Public/layout.html.twig" %}
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="span3">
-                {% include ":modules:navigation.html.twig" %}
-                {% include ":modules:user.html.twig" %}
+                {% include ":layout:Public/modules/navigation.html.twig" %}
+                {% include ":layout:Public/modules/user.html.twig" %}
 
             </div>
 
             <div class="span9">
                 <ul class="thumbnails">
-                    {% for product in products %}
-                        <li class="span3">
-                            <div class="thumbnail">
-                                <img src="product.image" alt="imgLogo" width="300" height="300">
-                                <div class="caption">
-                                    <h4>{{ product.name }}</h4>
-                                    <p>{{ product.price }} €</p>
-                                    <a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
-                                    <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
+                    {#{% for product in products %}#}
+                        {#<li class="span3">#}
+                            {#<div class="thumbnail">#}
+                                {#<img src="product.image" alt="imgLogo" width="300" height="300">#}
+                                {#<div class="caption">#}
+                                    {#<h4>{{ product.name }}</h4>#}
+                                    {#<p>{{ product.price }} €</p>#}
+                                    {#<a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>#}
+                                    {#<a class="btn btn-success" href="panier.php">Ajouter au panier</a>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</li>#}
+                    {#{% endfor %}#}
                 </ul>
                 <div class="pagination">
                     <ul>

@@ -1,8 +1,10 @@
-{% extends ":layout:layout.html.twig" %}
+{% extends ":layout:Public/layout.html.twig" %}
 {% block body %}
     <div class="container">
         <div class="row">
-            {% include ":modules:navigation.html.twig" %}
+            <div class="span3">
+                {% include ":layout:Public/modules/navigation.html.twig" %}
+            </div>
             <div class="span9">
                 <h2>Votre parnier</h2>
                 <form>
