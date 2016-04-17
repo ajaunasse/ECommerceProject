@@ -11,44 +11,55 @@ namespace Ecommerce\EcommerceBundle\Controller;
 
 use Ecommerce\EcommerceBundle\Entity\Products;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(){
-//        $em = $this->getDoctrine()->getManager() ;
-//
-//        $products = $em->getRepository("EcommerceBundle:Products")->findAll() ;
+        $em = $this->getDoctrine()->getManager() ;
+        $products = $em->getRepository("EcommerceBundle:Products")->findAll() ;
 
 
-        return $this->render('EcommerceBundle:Public:Products/products.html.twig');
+        return $this->render('EcommerceBundle:Public:Products/products.html.twig', array(
+            'products' => $products
+        ));
+    }
+
+    /**
+     * Get all products according to the Category
+     * @param $idCategory
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function categoryAction($idCategory){
+
+        $em = $this->getDoctrine()->getManager() ;
+        $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($idCategory) ;
+
+        return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
+            'products' => $products
+        ));
     }
 
     public function singleAction($id){
-//        $em = $this->getDoctrine()->getManager() ;
-//
-//        $product = $em->getRepository("EcommerceBundle:Products")->find($id) ;
-        return $this->render('EcommerceBundle:Public:Products/singleProduct.html.twig');
+        $em = $this->getDoctrine()->getManager() ;
+        $product = $em->getRepository('EcommerceBundle:Products')->find($id) ;
+
+        if(!$product) throw new NotFoundHttpException("Ce produit n'existe pas !") ;
+
+        return $this->render('EcommerceBundle:Public:Products/singleProduct.html.twig',array(
+            'product' => $product
+        ));
     }
 
+    public function searchAction($value){
+        $em = $this->getDoctrine()->getManager() ;
+        $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($value) ;
 
-    public function addAction(){
-
-//        $em = $this->getDoctrine()->getManager() ;
-//        $product = new Products() ;
-//        $product->setName("My Product") ;
-//        $product->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam debitis ea facilis illo inventore iusto modi molestiae nisi obcaecati sequi! Atque est facere perferendis provident reprehenderit sint tempora totam voluptates?");
-//        $product->setPrice(50.00);
-//        $product->setAvailable(true) ;
-//        $product->setImage("monImage.png") ;
-//        $product->setTVA("1.35") ;
-//        $product->setCategory("Laptop");
-//
-//        $em->persist($product) ;
-//        $em->flush() ;
-//        var_dump($product);
-//        die() ;
-
-
+        return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
+            'products' => $products
+        ));
     }
-
 }

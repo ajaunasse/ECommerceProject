@@ -1,19 +1,22 @@
+# HomePage FrontEnd
 _homepage:
     path:     /
     defaults: { _controller: EcommerceBundle:Product:index }
 
-
-#ROUTE LINK TO PRODUCTS FEATURES
+# ROUTE LINKED TO PRODUCTS FEATURES
 _product:
-   path:  /product/{id}
-   defaults : { _controller: EcommerceBundle:Product:single }
-   requirements:
-       id: \d+
-_productAdd:
-    path : /product/add
-    defaults : {_controller: EcommerceBundle:Product:add}
+    path : /Product/{id}
+    defaults: {_controller: EcommerceBundle:Product:single}
+_category:
+    path: /Category/{idCategory}/{name}
+    defaults: {_controller: EcommerceBundle:Product:category }
+    requirements:
+        id : \d+
+_search:
+    path: /search/{value}
+    defaults: {_controller: EcommerceBundle:Product:search }
 
-#ROUTE LINK TO CART FEATURES
+# ROUTE LINKED TO CART FEATURES
 _cart:
     path : /cart
     defaults : { _controller: EcommerceBundle:Cart:index}
@@ -24,3 +27,5 @@ _delivery:
 _validate:
     path: /validate
     defaults : { _controller : EcommerceBundle:Cart:validate}
+
+# ROUTE LINKED TO CATEGORIES FEATURES

@@ -10,19 +10,19 @@
 
             <div class="span9">
                 <ul class="thumbnails">
-                    {#{% for product in products %}#}
-                        {#<li class="span3">#}
-                            {#<div class="thumbnail">#}
-                                {#<img src="product.image" alt="imgLogo" width="300" height="300">#}
-                                {#<div class="caption">#}
-                                    {#<h4>{{ product.name }}</h4>#}
-                                    {#<p>{{ product.price }} €</p>#}
-                                    {#<a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>#}
-                                    {#<a class="btn btn-success" href="panier.php">Ajouter au panier</a>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</li>#}
-                    {#{% endfor %}#}
+                    {% for product in products %}
+                        <li class="span3">
+                            <div class="thumbnail">
+                                <img src="product.image" alt="imgLogo" width="300" height="300">
+                                <div class="caption">
+                                    <h4>{{ product.name }}</h4>
+                                    <p>{{ product.price }} €</p>
+                                    <a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
+                                    <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
                 </ul>
                 <div class="pagination">
                     <ul>

@@ -1,3 +1,5 @@
 _pages_homepage:
-    path:     /
+    path:     /{id}
     defaults: { _controller: PagesBundle:Pages:pages }
+    requirements:
+        id: \d+

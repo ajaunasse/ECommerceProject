@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductsRepository extends EntityRepository
 {
+    /**
+     * Query : Get All Product according to the Category
+     * @param $idCategory
+     * @return array
+     */
+    public function getAllByCategorie($idCategory){
+        $qb = $this->createQueryBuilder('p')
+                ->select('p')
+                ->where('p.category = :idCategory')
+                ->orderBy('p.id')
+                ->setParameter('idCategory', $idCategory) ;
+
+        return $qb->getQuery()->getResult() ;
+    }
+
+    public function search($value){
+
+    }
 }
