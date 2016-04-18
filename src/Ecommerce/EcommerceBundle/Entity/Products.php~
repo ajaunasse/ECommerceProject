@@ -31,6 +31,13 @@ class Products
     /**
      * @var string
      *
+     * @ORM\Column(name="reference", type="string", length=100)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -276,5 +283,45 @@ class Products
     public function getSubcategory()
     {
         return $this->subcategory;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add orders
+     *
+     * @param \Ecommerce\EcommerceBundle\Entity\Orders $orders
+     * @return Products
+     */
+    public function addOrder(\Ecommerce\EcommerceBundle\Entity\Orders $orders)
+    {
+        $this->orders[] = $orders;
+
+        return $this;
+    }
+
+    /**
+     * Remove orders
+     *
+     * @param \Ecommerce\EcommerceBundle\Entity\Orders $orders
+     */
+    public function removeOrder(\Ecommerce\EcommerceBundle\Entity\Orders $orders)
+    {
+        $this->orders->removeElement($orders);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }

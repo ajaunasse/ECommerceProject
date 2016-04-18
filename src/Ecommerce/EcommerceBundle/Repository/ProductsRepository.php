@@ -28,6 +28,11 @@ class ProductsRepository extends EntityRepository
         return $qb->getQuery()->getResult() ;
     }
 
+    /**
+     * Get the products search
+     * @param $value
+     * @return array
+     */
     public function search($value){
         $qb = $this->createQueryBuilder('p')
                     ->select('p')
@@ -35,6 +40,19 @@ class ProductsRepository extends EntityRepository
                     ->andWhere('u.available = 1')
                     ->orderBy('p.id')
                     ->setParameter('value','%'.$value.'%');
+
+        return $qb->getQuery()->getResult() ;
+    }
+
+    /**
+     * @param $array
+     * @return array
+     */
+    public function findArray($array){
+        $qb = $this->createQueryBuilder('p')
+                    ->select('p')
+                    ->where('p.id IN (:array)')
+                    ->setParameter('array',$array);
 
         return $qb->getQuery()->getResult() ;
     }

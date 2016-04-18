@@ -29,5 +29,11 @@ _delivery:
 _validate:
     path: /validate
     defaults : { _controller : EcommerceBundle:Cart:validate}
+_add:
+    path: /cart/add/{id}
+    defaults:   {_controller : EcommerceBundle:Cart:add}
+_delete:
+    path: /cart/delete/{id}
+    defaults: { _controller : EcommerceBundle:Cart:del}
 
 # ROUTE LINKED TO CATEGORIES FEATURES

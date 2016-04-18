@@ -31,6 +31,13 @@ class Products
     /**
      * @var string
      *
+     * @ORM\Column(name="reference", type="string", length=100)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -316,5 +323,28 @@ class Products
     public function getOrders()
     {
         return $this->orders;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Products
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
     }
 }
