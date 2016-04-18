@@ -37,7 +37,7 @@ class ProductsRepository extends EntityRepository
         $qb = $this->createQueryBuilder('p')
                     ->select('p')
                     ->where('p.name like :value')
-                    ->andWhere('u.available = 1')
+                    ->andWhere('p.available = 1')
                     ->orderBy('p.id')
                     ->setParameter('value','%'.$value.'%');
 
