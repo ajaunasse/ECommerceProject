@@ -1,7 +1,16 @@
 {% extends ":layout:Public/layout.html.twig" %}
 {% set totalHT  = 0 %}
 {% set totalTTC = 0 %}
+{% set refTva   = {} %}
 {% set tva = 0 %}
+{% set length =  products|length > 0  %}
+
+{% for product in products %}
+    {% set refTva = refTva|merge({ ('%'~product.tva.value) : 0 }) %}
+{% endfor %}
+
+
+
 {% block body %}
     <div class="container">
         <div class="row">
@@ -15,7 +24,7 @@
                     </div>
                 {% endfor %}
                 <h2>Votre parnier</h2>
-                {% if products|length > 0 %}
+                {% if length > 0 %}
                     <table class="table table-striped table-hover">
                         <thead>
 
@@ -60,30 +69,35 @@
                                 {% set totalHT = totalHT + product.price * cart[product.id] %}
                                 {% set totalTTC = totalTTC + (product.price*cart[product.id]|tva(product.tva.multiplicate)) %}
                                 {% set tva = tva + ((product.price*cart[product.id]|tva(product.tva.multiplicate)) - product.price * cart[product.id] ) %}
+                                {% set refTva = refTva|merge({('%'~product.tva.value) : refTva['%'~product.tva.value] + (product.price * cart[product.id])|amountTva(product.tva.multiplicate)}) %}
                             {% endfor %}
-                        </tbody>
+                                </tbody>
                     </table>
                     <dl class="dl-horizontal pull-right">
                         <dt>Total HT :</dt>
                         <dd>{{ totalHT }}€</dd>
-
-                        <dt>TVA :</dt>
-                        <dd>{{ tva }}€</dd>
+                        {% for key,tva in refTva %}
+                            <dt> TVA : {{ key }}</dt>
+                            <dd> {{ tva }}€</dd>
+                        {% endfor %}
 
                         <dt>Total TTC :</dt>
                         <dd>{{ totalTTC }}€</dd>
                     </dl>
-                    <div class="clearfix"></div>
-                        <a href="{{ path('_delivery') }}" class="btn btn-success pull-right">Valider mon panier</a>
-                        <a href="index.php" class="btn btn-primary">Continuer mes achats</a>
-                     </div>
-            {% else %}
-                <div class="alert alert-danger">
-                    Aucun article(s) dans le panier
-                </div>
-            {% endif %}
+
+                 {% else %}
+                    <div class="alert alert-danger">
+                        Aucun article(s) dans le panier
+                    </div>
+                 {% endif %}
+                <div class="clearfix"></div>
+                {% if length > 0 %}
+                    <a href="{{ path('_delivery') }}" class="btn btn-success pull-right">Valider mon panier</a>
+                {% endif %}
+                <a href="{{ path('_homepage') }}" class="btn btn-primary">Continuer mes achats</a>
+            </div>
             <div class="clearfix"></div>
-            <a href="{{ path('_homepage') }}" class="btn btn-primary">Continuer mes achats</a>
+
         </div>
     </div>
 {% endblock %}

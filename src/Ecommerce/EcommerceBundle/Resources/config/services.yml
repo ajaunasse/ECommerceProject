@@ -3,3 +3,7 @@ services:
         class: Ecommerce\EcommerceBundle\Twig\Extention\TvaExtention
         tags:
             - { name: twig.extension }
+    amoutTva:
+        class: Ecommerce\EcommerceBundle\Twig\Extention\TvaAmount
+        tags:
+            - { name: twig.extension }
