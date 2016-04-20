@@ -11,7 +11,7 @@
                             {% else %}
                                 {% for adress in user.adress %}
                                     <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                        <input type="radio" name="delivraryAdress" id="optionsRadios1" value="option1" {% if loop.index0 ==0  %} checked="checked" {% endif %}>
                                         {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
                                     </label>
                                 {% endfor %}
@@ -23,7 +23,7 @@
                             {% else %}
                                 {% for adress in user.adress %}
                                     <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                        <input type="radio" name="invoicAdress" id="optionsRadios1" value="option1" {% if loop.index0==0  %} checked="checked" {% endif %}>
                                         {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
                                     </label>
                                 {% endfor %}
