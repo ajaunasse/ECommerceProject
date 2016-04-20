@@ -9,17 +9,21 @@
         <ul>
             <li class="nav-header">Panier</li>
         </ul>
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-shopping-cart"></i>
-            {{ size }} Produits - {{ amountTot }} €
-            <b class="caret"></b></a>
-        </a>
+        {% if size > 0 %}
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-shopping-cart"></i>
+                {{ size }} Produits - {{ amountTot }} €
+                <b class="caret"></b></a>
+            </a>
 
-        <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
-            {% for product in products %}
-                <p>{{ product.name }}  ( x{{ cart[product.id] }} ) <span class="pull-right">{{  ((product.price|tva(product.tva.multiplicate)) * cart[product.id]) }} €</span></p>
-            {% endfor %}
-            <a href="{{ path('_cart') }}" class="btn btn-primary">Mon Panier</a>
-        </div>
+            <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
+                {% for product in products %}
+                    <p>{{ product.name }}  ( x{{ cart[product.id] }} ) <span class="pull-right">{{  ((product.price|tva(product.tva.multiplicate)) * cart[product.id]) }} €</span></p>
+                {% endfor %}
+                <a href="{{ path('_cart') }}" class="btn btn-primary">Mon Panier</a>
+            </div>
+        {% else %}
+            <p> Aucun article(s) dans le panier.</p>
+        {% endif %}
     </div>
 </div>

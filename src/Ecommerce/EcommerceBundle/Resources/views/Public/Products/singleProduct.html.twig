@@ -3,42 +3,32 @@
 {% block keywords %}{{ product.name }}{% endblock %}
 {% block description %}{{ product.description }}{% endblock %}
 {% block body %}
-    <div class="container">
+    <div class="span9">
         <div class="row">
-            <div class="span3">
-                {% include ":layout:Public/modules/navigation.html.twig" %}
-                {% include ":layout:Public/modules/user.html.twig" %}
+            <div class="span4">
+                <img src="{{ product.image.path }}" alt="{{ product.image.alt }}" width="470" height="310">
             </div>
-            <div class="span9">
-                <div class="row">
-                    <div class="span4">
-                        <img src="{{ product.image.path }}" alt="{{ product.image.alt }}" width="470" height="310">
+            <div class="span5">
+                <h4>{{ product.category.name }}</h4>
+                <h5>{{ product.name }}</h5>
+                <p> {{ product.description }}</p>
+                <h4>Prix TTC : {{ product.price |tva(product.tva.multiplicate) }} €</h4>
+                <h4>Prix HT : {{ product.price  }} €</h4>
+                {% if cart[product.id] is not defined %}
+                    <form action="{{ path('_add', {'id': product.id}) }}" method="GET">
+                        <select name="qte" class="span1">
+                            {%  for i in 1..10 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    <div>
+                        <button class="btn btn-primary">Ajouter au panier</button>
+                {% else %}
+                        <div class="alert alert-info">Ce produit est déjà dans votre panier</div>
                     </div>
-                    <div class="span5">
-                        <h4>{{ product.category.name }}</h4>
-                        <h5>{{ product.name }}</h5>
-                        <p> {{ product.description }}</p>
-                        <h4>Prix TTC : {{ product.price |tva(product.tva.multiplicate) }} €</h4>
-                        <h4>Prix HT : {{ product.price  }} €</h4>
-                        {% if cart[product.id] is not defined %}
-                            <form action="{{ path('_add', {'id': product.id}) }}" method="GET">
-                                <select name="qte" class="span1">
-                                    {%  for i in 1..10 %}
-                                        <option value="{{ i }}">{{ i }}</option>
-                                    {% endfor %}
-                                </select>
-
-                                <div>
-
-                                    <button class="btn btn-primary">Ajouter au panier</button>
-                                {% else %}
-                                    <div class="alert alert-info">Ce produit est déjà dans votre panier</div>
-                                {% endif %}
-                            </div>
-                        </form>
+                    </form>
+                {% endif %}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 {% endblock %}

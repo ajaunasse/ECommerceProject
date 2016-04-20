@@ -2,38 +2,8 @@
 _homepage:
     path:     /
     defaults: { _controller: EcommerceBundle:Product:index }
-
-# ROUTE LINKED TO PRODUCTS FEATURES
-_product:
-    path : /Product/{id}
-    defaults: {_controller: EcommerceBundle:Product:single}
-
-_category:
-    path: /Category/{idCategory}/{name}
-    defaults: {_controller: EcommerceBundle:Product:category }
-    requirements:
-        id : \d+
+#Search Features
 _search:
     path: /search
     defaults: {_controller: EcommerceBundle:Product:search }
 
-# ROUTE LINKED TO CART FEATURES
-_cart:
-    path : /cart
-    defaults : { _controller: EcommerceBundle:Cart:index}
-
-_delivery:
-    path: /delivery
-    defaults : { _controller : EcommerceBundle:Cart:delivery}
-
-_validate:
-    path: /validate
-    defaults : { _controller : EcommerceBundle:Cart:validate}
-_add:
-    path: /cart/add/{id}
-    defaults:   {_controller : EcommerceBundle:Cart:add}
-_delete:
-    path: /cart/delete/{id}
-    defaults: { _controller : EcommerceBundle:Cart:del}
-
-# ROUTE LINKED TO CATEGORIES FEATURES

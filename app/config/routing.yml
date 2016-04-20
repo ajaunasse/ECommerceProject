@@ -1,13 +1,28 @@
-users:
-    resource: "@UsersBundle/Resources/config/routing.yml"
-    prefix:   /users
-pages:
-    resource: "@PagesBundle/Resources/config/routing.yml"
-    prefix:   /pages
-
+#HomePage
 ecommerce:
     resource: "@EcommerceBundle/Resources/config/routing.yml"
     prefix:   /
+#Users
+users:
+    resource: "@UsersBundle/Resources/config/routing.yml"
+    prefix:   /users
+#Pages
+pages:
+    resource: "@PagesBundle/Resources/config/routing.yml"
+    prefix:   /pages
+#Cart
+cart:
+    resource: "@EcommerceBundle/Resources/config/routing/routing_cart.yml"
+    prefix:   /cart
+#Category
+category:
+    resource: "@EcommerceBundle/Resources/config/routing/routing_category.yml"
+    prefix:   /category
+#Products
+product:
+    resource: "@EcommerceBundle/Resources/config/routing/routing_product.yml"
+    prefix:   /products
+#admin
 admin:
-    resource : "@EcommerceBundle/Resources/config/routing_admin.yml"
+    resource : "@EcommerceBundle/Resources/config/routing/routing_admin.yml"
     prefix: /admin

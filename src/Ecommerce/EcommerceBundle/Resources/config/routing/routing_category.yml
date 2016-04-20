@@ -1,0 +1,5 @@
+_category:
+    path: /{idCategory}/{name}
+    defaults: {_controller: EcommerceBundle:Product:category }
+    requirements:
+        id : \d+

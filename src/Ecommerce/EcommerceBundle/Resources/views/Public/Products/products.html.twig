@@ -1,13 +1,5 @@
 {% extends ":layout:Public/layout.html.twig" %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="span3">
-                {% include ":layout:Public/modules/navigation.html.twig" %}
-                {% include ":layout:Public/modules/user.html.twig" %}
-                {% include ":layout:Public/modules/cart.html.twig" %}
-            </div>
-
             <div class="span9">
                 {% for flash_message in app.session.flashBag.get('danger') %}
                     <div class="alert alert-danger">
@@ -45,6 +37,4 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
 {% endblock %}
