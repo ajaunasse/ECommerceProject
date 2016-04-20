@@ -6,6 +6,8 @@ _cart:
 _delivery:
     path: /delivery
     defaults : { _controller : EcommerceBundle:Cart:delivery}
+    requirements:
+        _method: POST|GET
 
 _validate:
     path: /validate

@@ -9,16 +9,13 @@
     {% set refTva = refTva|merge({ (product.tva.value)~'%' : 0 }) %}
 {% endfor %}
 
-
-
 {% block body %}
-            <div class="span9">
                 {% for flash_message in app.session.flashBag.get('success') %}
                     <div class="alert alert-success">
                         {{ flash_message }}
                     </div>
                 {% endfor %}
-                <h2>Votre parnier</h2>
+                <h2>Votre panier</h2>
                 {% if length > 0 %}
                     <table class="table table-striped table-hover">
                         <thead>

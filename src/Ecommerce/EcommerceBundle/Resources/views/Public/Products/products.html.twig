@@ -1,11 +1,5 @@
 {% extends ":layout:Public/layout.html.twig" %}
 {% block body %}
-            <div class="span9">
-                {% for flash_message in app.session.flashBag.get('danger') %}
-                    <div class="alert alert-danger">
-                        {{ flash_message }}
-                    </div>
-                {% endfor %}
                 <ul class="thumbnails">
                     {% for product in products %}
                         <li class="span4">
@@ -36,5 +30,4 @@
                         <li><a href="#">Suivant</a></li>
                     </ul>
                 </div>
-            </div>
 {% endblock %}

@@ -7,3 +7,9 @@ services:
         class: Ecommerce\EcommerceBundle\Twig\Extention\TvaAmount
         tags:
             - { name: twig.extension }
+
+    redirection_listener:
+        class: Ecommerce\EcommerceBundle\Listener\RedirectionListener
+        arguments: ['@service_container', '@session']
+        tags:
+            - { name : kernel.event_listener, event: kernel.request, method: onKernelRequest }

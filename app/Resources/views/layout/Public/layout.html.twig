@@ -27,7 +27,18 @@
                     {% include ":layout:Public/modules/user.html.twig" %}
                     {% include ":layout:Public/modules/cart.html.twig" %}
                 </div>
+                <div class="span9">
+                    {% if app.request.hasPreviousSession %}
+                        {% for type, messages in app.session.flashbag.all() %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ type }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
                 {% block body %}{% endblock %}
+                </div>
             </div>
         </div>
 

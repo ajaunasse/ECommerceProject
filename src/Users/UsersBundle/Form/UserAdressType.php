@@ -15,13 +15,13 @@ class UserAdressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('phone')
             ->add('adress')
-            ->add('postcode')
+            ->add('complement')
             ->add('country')
             ->add('city')
-            ->add('complement')
-            ->add('user')
+            ->add('postcode')
+            ->add('phone')
+            //->add('user')
         ;
     }
     

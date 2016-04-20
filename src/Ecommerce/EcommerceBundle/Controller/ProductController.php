@@ -13,43 +13,56 @@ use Ecommerce\EcommerceBundle\Form\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ecommerce\EcommerceBundle\Entity\Category;
 
 class ProductController extends Controller
 {
+
     /**
+     * @param Request $request
+     * @param Category|null $category
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request){
+    public function indexAction(Request $request,Category $category = null){
         $em = $this->getDoctrine()->getManager() ;
-        $products = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
         $session =  $request->getSession() ;
+
+
+        if($category != null){
+            $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category) ;
+        } else {
+            $products = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
+        }
+
         if($session->has('cart')){
             $cart = $session->get('cart') ;
         } else {
             $cart = false ;
         }
+
+
         return $this->render('EcommerceBundle:Public:Products/products.html.twig', array(
             'products' => $products,
             'cart'      => $cart,
         ));
     }
 
-    /**
-     * Get all products according to the Category
-     * @param $idCategory
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function categoryAction($idCategory){
-
-        $em = $this->getDoctrine()->getManager() ;
-        $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($idCategory) ;
-
-        if(!$products) throw new NotFoundHttpException("La catégorie n'existe pas") ;
-
-        return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
-            'products' => $products
-        ));
-    }
+//    /**
+//     * Get all products according to the Category
+//     * @param $idCategory
+//     * @return \Symfony\Component\HttpFoundation\Response
+//     */
+//    public function categoryAction($idCategory){
+//
+//        $em = $this->getDoctrine()->getManager() ;
+//        $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($idCategory) ;
+//
+//        if(!$products) throw new NotFoundHttpException("La catégorie n'existe pas") ;
+//
+//        return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
+//            'products' => $products
+//        ));
+//    }
 
     public function singleAction(Request $request ,$id){
         $em = $this->getDoctrine()->getManager() ;

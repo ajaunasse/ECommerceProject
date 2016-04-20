@@ -24,7 +24,6 @@ class ProductsRepository extends EntityRepository
                 ->andWhere('p.available = 1')
                 ->orderBy('p.id')
                 ->setParameter('idCategory', $idCategory) ;
-
         return $qb->getQuery()->getResult() ;
     }
 

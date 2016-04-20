@@ -12,6 +12,8 @@ namespace Ecommerce\EcommerceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\Request;
+use Users\UsersBundle\Entity\UserAdress;
+use Users\UsersBundle\Form\UserAdressType;
 
 class CartController extends Controller
 {
@@ -59,8 +61,28 @@ class CartController extends Controller
      * TODO
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deliveryAction(){
-        return $this->render('EcommerceBundle:Public:Cart/delivery.html.twig');
+    public function deliveryAction(Request $request){
+        $formType = new UserAdressType();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $entity = new UserAdress() ;
+        $form = $this->createForm($formType,$entity) ;
+        if($request->getMethod() == 'POST'){
+            $form->handleRequest($request);
+            if($form->isValid()){
+                $entity = $form->getData() ;
+                $em = $this->getDoctrine()->getManager() ;
+                $entity->setUser($user);
+                $em->persist($entity);
+                $em->flush();
+                $this->addFlash('success', 'Adresse ajoutée avec succès');
+            } else {
+                var_dump($form->getErrors());
+            }
+        }
+        return $this->render('EcommerceBundle:Public:Cart/delivery.html.twig',array(
+            'form' => $form->createView(),
+            'user' => $user,
+        ));
     }
 
     /**

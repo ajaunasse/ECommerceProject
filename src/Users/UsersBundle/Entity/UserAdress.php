@@ -21,33 +21,31 @@ class UserAdress
      */
     private $id;
 
-
-
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=255)
+     * @ORM\Column(name="phone", type="string", length=35)
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adress", type="string", length=255)
+     * @ORM\Column(name="adress", type="string", length=100)
      */
     private $adress;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="postcode", type="string", length=255)
+     * @ORM\Column(name="postcode", type="string", length=10)
      */
     private $postcode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @ORM\Column(name="country", type="string", length=30)
      */
     private $country;
 
@@ -61,7 +59,7 @@ class UserAdress
     /**
      * @var string
      *
-     * @ORM\Column(name="complement", type="string", length=100)
+     * @ORM\Column(name="complement", type="string", length=100, nullable=true)
      */
     private $complement;
 
@@ -81,52 +79,11 @@ class UserAdress
         return $this->id;
     }
 
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return UserAdress
-     */
-    public function setLastname($lastname)
+
+    public function __construct()
     {
-        $this->lastname = $lastname;
-
-        return $this;
     }
-
-    /**
-     * Get lastname
-     *
-     * @return string 
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     * @return UserAdress
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Get firstname
-     *
-     * @return string 
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
+    
     /**
      * Set phone
      *
