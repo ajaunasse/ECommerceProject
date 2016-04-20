@@ -19,13 +19,18 @@ class ProductController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(){
+    public function indexAction(Request $request){
         $em = $this->getDoctrine()->getManager() ;
         $products = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
-
-
+        $session =  $request->getSession() ;
+        if($session->has('cart')){
+            $cart = $session->get('cart') ;
+        } else {
+            $cart = false ;
+        }
         return $this->render('EcommerceBundle:Public:Products/products.html.twig', array(
-            'products' => $products
+            'products' => $products,
+            'cart'      => $cart,
         ));
     }
 
@@ -46,14 +51,20 @@ class ProductController extends Controller
         ));
     }
 
-    public function singleAction($id){
+    public function singleAction(Request $request ,$id){
         $em = $this->getDoctrine()->getManager() ;
         $product = $em->getRepository('EcommerceBundle:Products')->find($id) ;
-
+        $session =  $request->getSession() ;
+        if($session->has('cart')){
+            $cart = $session->get('cart') ;
+        } else {
+            $cart = false ;
+        }
         if(!$product) throw new NotFoundHttpException("Ce produit n'existe pas !") ;
 
         return $this->render('EcommerceBundle:Public:Products/singleProduct.html.twig',array(
-            'product' => $product
+            'product' => $product,
+            'cart'    => $cart,
         ));
     }
 
@@ -78,6 +89,7 @@ class ProductController extends Controller
         if($request->isMethod('POST')){
             $form->handleRequest($request);
             $value = ($form['search']->getData());
+            var_dump($value);
             $em = $this->getDoctrine()->getManager() ;
             $products = $em->getRepository('EcommerceBundle:Products')->search($value) ;
         }

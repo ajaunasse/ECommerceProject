@@ -38,6 +38,23 @@ class CartController extends Controller
         ));
     }
 
+    public function menuAction(Request $request){
+        $session    = $request->getSession() ;
+        $em = $this->getDoctrine()->getManager() ;
+        if(!$session->has('cart')){
+            $size = 0 ;
+        } else {
+            $cart  = $session->get('cart') ;
+            $size = count($session->get('cart')) ;
+            $products = $em->getRepository('EcommerceBundle:Products')->findArray(array_keys($cart));
+        }
+        return $this->render('EcommerceBundle:Public:Cart/menu_cart.html.twig',array(
+            'products'  => $products,
+            'size'      => $size,
+            'cart'      => $cart
+        ));
+    }
+
     /**
      * TODO
      * @return \Symfony\Component\HttpFoundation\Response
@@ -69,14 +86,12 @@ class CartController extends Controller
         if(!$session->has('cart')){
             $session->set('cart', array()) ;
         }
-
         $cart = $session->get('cart') ;
         if(array_key_exists($id,$cart)){
             if($qte !=null){
                 var_dump("quantite not null, on remplace") ;
                 $cart[$id] = $qte;
-            } else {
-                $cart[$id] = 1+$cart[$id];
+                $this->addFlash('success', 'Quantité modifiée avec succès');
             }
         } else {
             if($qte != null){
@@ -84,6 +99,7 @@ class CartController extends Controller
             } else {
                 $cart[$id] = 1 ;
             }
+            $this->addFlash('success', 'Article ajouté au panier');
         }
         $session->set('cart', $cart) ;
         return $this->redirect($this->generateUrl('_cart')) ;
@@ -101,7 +117,7 @@ class CartController extends Controller
 
         if(array_key_exists($id,$cart)){
             unset($cart[$id]);
-            $this->addFlash('danger', 'Article supprimé : ');
+            $this->addFlash('success', 'Article supprimé  ');
         }
         $session->set('cart', $cart) ;
         return $this->redirect($this->generateUrl('_cart')) ;

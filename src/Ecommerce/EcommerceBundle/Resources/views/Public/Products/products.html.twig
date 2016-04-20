@@ -5,7 +5,7 @@
             <div class="span3">
                 {% include ":layout:Public/modules/navigation.html.twig" %}
                 {% include ":layout:Public/modules/user.html.twig" %}
-
+                {% include ":layout:Public/modules/cart.html.twig" %}
             </div>
 
             <div class="span9">
@@ -16,14 +16,18 @@
                 {% endfor %}
                 <ul class="thumbnails">
                     {% for product in products %}
-                        <li class="span3">
+                        <li class="span4">
                             <div class="thumbnail">
                                 <img src="product.image" alt="imgLogo" width="300" height="300">
                                 <div class="caption">
                                     <h4>{{ product.name }}</h4>
                                     <p>{{ product.price |tva(product.tva.multiplicate) }} €</p>
                                     <a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
-                                    <a class="btn btn-success" href="{{ path('_add', {'id':product.id}) }}">Ajouter au panier</a>
+                                    {% if cart[product.id] is not defined %}
+                                        <a class="btn btn-success" href="{{ path('_add', {'id':product.id}) }}">Ajouter au panier</a>
+                                    {% else %}
+                                        <a class="btn btn-danger" href="{{ path('_delete', {'id':product.id}) }}">Supprimer du panier</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>

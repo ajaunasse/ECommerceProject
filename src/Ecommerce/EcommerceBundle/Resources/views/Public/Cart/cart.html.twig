@@ -6,7 +6,7 @@
 {% set length =  products|length > 0  %}
 
 {% for product in products %}
-    {% set refTva = refTva|merge({ ('%'~product.tva.value) : 0 }) %}
+    {% set refTva = refTva|merge({ (product.tva.value)~'%' : 0 }) %}
 {% endfor %}
 
 
@@ -16,10 +16,12 @@
         <div class="row">
             <div class="span3">
                 {% include ":layout:Public/modules/navigation.html.twig" %}
+                {% include ":layout:Public/modules/user.html.twig" %}
+                {% include ":layout:Public/modules/cart.html.twig" %}
             </div>
             <div class="span9">
-                {% for flash_message in app.session.flashBag.get('danger') %}
-                    <div class="alert alert-danger">
+                {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success">
                         {{ flash_message }}
                     </div>
                 {% endfor %}
@@ -69,7 +71,7 @@
                                 {% set totalHT = totalHT + product.price * cart[product.id] %}
                                 {% set totalTTC = totalTTC + (product.price*cart[product.id]|tva(product.tva.multiplicate)) %}
                                 {% set tva = tva + ((product.price*cart[product.id]|tva(product.tva.multiplicate)) - product.price * cart[product.id] ) %}
-                                {% set refTva = refTva|merge({('%'~product.tva.value) : refTva['%'~product.tva.value] + (product.price * cart[product.id])|amountTva(product.tva.multiplicate)}) %}
+                                {% set refTva = refTva|merge({(product.tva.value~'%') : refTva[product.tva.value~'%'] + (product.price * cart[product.id])|amountTva(product.tva.multiplicate)}) %}
                             {% endfor %}
                                 </tbody>
                     </table>
@@ -77,7 +79,7 @@
                         <dt>Total HT :</dt>
                         <dd>{{ totalHT }}€</dd>
                         {% for key,tva in refTva %}
-                            <dt> TVA : {{ key }}</dt>
+                            <dt> TVA  {{ key }} :</dt>
                             <dd> {{ tva }}€</dd>
                         {% endfor %}
 
