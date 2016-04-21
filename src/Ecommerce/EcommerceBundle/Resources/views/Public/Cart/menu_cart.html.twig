@@ -1,8 +1,10 @@
-{% if size>0 %}
-    {% set amountTot = 0 %}
-    {% for product in products %}
-        {% set amountTot = amountTot +((product.price|tva(product.tva.multiplicate)) * cart[product.id]) %}
-    {% endfor %}
+{% if products != null %}
+    {% if size>0  %}
+        {% set amountTot = 0 %}
+        {% for product in products %}
+            {% set amountTot = amountTot +((product.price|tva(product.tva.multiplicate)) * cart[product.id]) %}
+        {% endfor %}
+    {% endif %}
 {% endif %}
     <div class="well">
     <div class="dropdown">

@@ -44,12 +44,15 @@ class CartController extends Controller
         $session    = $request->getSession() ;
         $em = $this->getDoctrine()->getManager() ;
         if(!$session->has('cart')){
+            $cart = $session->set('cart',array()) ;
             $size = 0 ;
+            $products=null;
         } else {
             $cart  = $session->get('cart') ;
             $size = count($session->get('cart')) ;
             $products = $em->getRepository('EcommerceBundle:Products')->findArray(array_keys($cart));
         }
+
         return $this->render('EcommerceBundle:Public:Cart/menu_cart.html.twig',array(
             'products'  => $products,
             'size'      => $size,
@@ -69,7 +72,7 @@ class CartController extends Controller
         if($request->getMethod() == 'POST'){
             $form->handleRequest($request);
             if($form->isValid()){
-                $entity = $form->getData() ;
+             //   $entity = $form->getData() ;
                 $em = $this->getDoctrine()->getManager() ;
                 $entity->setUser($user);
                 $em->persist($entity);

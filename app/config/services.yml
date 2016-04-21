@@ -4,11 +4,14 @@ parameters:
 #    parameter_name: value
 
 services:
-    redirect.after.login:
-        class: Users\UsersBundle\Redirection\AfterLoginRedirection
+    success.login.handler:
+        class: Users\UsersBundle\Handler\AuthentificationSuccessHandler
         arguments: ['@router','@security.authorization_checker']
 
     app.form.registration:
         class: Users\UsersBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+    failure.login.handler:
+        class : Users\UsersBundle\Handler\AuthentificationFailureHandler
+        arguments:  ['@http_kernel', '@security.http_utils', {}, '@logger']

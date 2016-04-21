@@ -20,7 +20,9 @@ security:
                 provider: fos_userbundle
                 csrf_provider: security.csrf.token_manager
                 default_target_path: /
-                success_handler: redirect.after.login
+                success_handler: success.login.handler
+                failure_handler: failure.login.handler
+                use_referer: true
             logout:
                 path:   /users/logout
                 target: /
