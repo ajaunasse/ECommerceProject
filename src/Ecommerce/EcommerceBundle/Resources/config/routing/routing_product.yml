@@ -1,4 +1,4 @@
 # ROUTE LINKED TO PRODUCTS FEATURES
 _product:
-    path : /Product/{id}
+    path : /{id}
     defaults: {_controller: EcommerceBundle:Product:single}

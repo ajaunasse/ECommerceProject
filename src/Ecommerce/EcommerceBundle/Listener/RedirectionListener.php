@@ -34,7 +34,14 @@ class RedirectionListener
      * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event){
-        $route = $event->getRequest()->attributes->get('_route') ;
+        $request        = $event->getRequest() ;
+        $list_route     = array('_cart', '_category', '_delivery','_validate','_product','_homepage');
+        $route          = $request->attributes->get('_route') ;
+        $route_params   = $request->attributes->get('_route_params') ;
+
+        if(in_array($route, $list_route)){
+            $this->setRouteSession($request, $route, $route_params);
+        }
         if($route == "_delivery" || $route =="_validate"){
             if ($this->session->has('cart')){
                 if(count($this->session->get('cart')) == 0){
@@ -47,5 +54,19 @@ class RedirectionListener
                 $event->setResponse(new RedirectResponse($this->router->generate('fos_user_security_login')));
             }
         }
+
+    }
+
+    /**
+     * @param $request
+     * @param $route
+     * @param null $param
+     */
+    private function setRouteSession($request, $route, $param){
+        $session = $request->getSession() ;
+        $session->set('lastPath', array(
+            'route' => $route,
+            'params' => $param
+        ));
     }
 }

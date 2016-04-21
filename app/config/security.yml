@@ -24,7 +24,7 @@ security:
                 failure_handler: failure.login.handler
                 use_referer: true
             logout:
-                path:   /users/logout
+                path:   /Users/logout
                 target: /
             anonymous:    true
 

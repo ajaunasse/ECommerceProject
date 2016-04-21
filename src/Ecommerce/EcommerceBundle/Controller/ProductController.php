@@ -24,45 +24,24 @@ class ProductController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request,Category $category = null){
+
         $em = $this->getDoctrine()->getManager() ;
         $session =  $request->getSession() ;
-
-
         if($category != null){
-            $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category) ;
+            $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category->getId()) ;
         } else {
             $products = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
         }
-
         if($session->has('cart')){
             $cart = $session->get('cart') ;
         } else {
             $cart = false ;
         }
-
-
         return $this->render('EcommerceBundle:Public:Products/products.html.twig', array(
             'products' => $products,
             'cart'      => $cart,
         ));
     }
-
-//    /**
-//     * Get all products according to the Category
-//     * @param $idCategory
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function categoryAction($idCategory){
-//
-//        $em = $this->getDoctrine()->getManager() ;
-//        $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($idCategory) ;
-//
-//        if(!$products) throw new NotFoundHttpException("La catégorie n'existe pas") ;
-//
-//        return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
-//            'products' => $products
-//        ));
-//    }
 
     public function singleAction(Request $request ,$id){
         $em = $this->getDoctrine()->getManager() ;
@@ -102,7 +81,6 @@ class ProductController extends Controller
         if($request->isMethod('POST')){
             $form->handleRequest($request);
             $value = ($form['search']->getData());
-            var_dump($value);
             $em = $this->getDoctrine()->getManager() ;
             $products = $em->getRepository('EcommerceBundle:Products')->search($value) ;
         }

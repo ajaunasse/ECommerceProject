@@ -28,7 +28,6 @@ class CartController extends Controller
 
         if(!$session->has('cart')){
             $session->set('cart', array()) ;
-
         }
         $cart = $session->get('cart') ;
         $em=$this->getDoctrine()->getManager() ;
@@ -78,8 +77,6 @@ class CartController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $this->addFlash('success', 'Adresse ajoutée avec succès');
-            } else {
-                var_dump($form->getErrors());
             }
         }
         return $this->render('EcommerceBundle:Public:Cart/delivery.html.twig',array(
@@ -92,7 +89,7 @@ class CartController extends Controller
      * TODO
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function validateAction(){
+    public function validateAction(Request $request){
         return $this->render('EcommerceBundle:Public:Cart/validate.html.twig');
     }
 
@@ -114,7 +111,6 @@ class CartController extends Controller
         $cart = $session->get('cart') ;
         if(array_key_exists($id,$cart)){
             if($qte !=null){
-                var_dump("quantite not null, on remplace") ;
                 $cart[$id] = $qte;
                 $this->addFlash('success', 'Quantité modifiée avec succès');
             }
@@ -142,10 +138,11 @@ class CartController extends Controller
 
         if(array_key_exists($id,$cart)){
             unset($cart[$id]);
-            $this->addFlash('success', 'Article supprimé  ');
+            $this->addFlash('success', 'Article supprimé !');
         }
         $session->set('cart', $cart) ;
         return $this->redirect($this->generateUrl('_cart')) ;
     }
+
 }
 
