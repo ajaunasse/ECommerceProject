@@ -4,14 +4,14 @@
             <div id="collapseOne" class="accordion-body collapse in">
                 <div class="accordion-inner">
                     <div class="span4">
-                        <form action="{{ path('_validate') }}">
+                        <form action="{{ path('_validate') }}" method="post">
                             <h4>Adresse de livraison</h4>
                             {% if user.adress|length == 0 %}
                                 <div class="alert alert-danger">Aucune adresse enregistrer, Veuillez enregistrer une adresse de livraison/facturation</div>
                             {% else %}
                                 {% for adress in user.adress %}
                                     <label class="radio">
-                                        <input type="radio" name="delivraryAdress" id="optionsRadios1" value="option1" {% if loop.index0 ==0  %} checked="checked" {% endif %}>
+                                        <input type="radio" name="deliveryAdress" id="optionsRadios1" value="{{ adress.id }}" {% if loop.index0 ==0  %} checked="checked" {% endif %}>
                                         {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
                                     </label>
                                 {% endfor %}
@@ -23,7 +23,7 @@
                             {% else %}
                                 {% for adress in user.adress %}
                                     <label class="radio">
-                                        <input type="radio" name="invoicAdress" id="optionsRadios1" value="option1" {% if loop.index0==0  %} checked="checked" {% endif %}>
+                                        <input type="radio" name="invoicAdress" id="optionsRadios1" value="{{ adress.id }}" {% if loop.index0==0  %} checked="checked" {% endif %}>
                                         {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
                                     </label>
                                 {% endfor %}

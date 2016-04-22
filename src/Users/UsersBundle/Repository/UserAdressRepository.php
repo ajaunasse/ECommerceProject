@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserAdressRepository extends EntityRepository
 {
+
+    public function getIdUser($id){
+            $qb = $this->createQueryBuilder('a')
+                ->select('a.user')
+                ->where('a.id = :id')
+                ->setParameter('id', $id) ;
+            return $qb->getQuery()->getResult() ;
+    }
 }

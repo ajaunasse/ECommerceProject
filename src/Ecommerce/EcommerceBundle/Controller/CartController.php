@@ -48,6 +48,10 @@ class CartController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function menuAction(Request $request){
         $session    = $request->getSession() ;
         $em = $this->getDoctrine()->getManager() ;
@@ -68,8 +72,9 @@ class CartController extends Controller
         ));
     }
 
+
     /**
-     * TODO
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deliveryAction(Request $request){
@@ -80,7 +85,7 @@ class CartController extends Controller
         if($request->getMethod() == 'POST'){
             $form->handleRequest($request);
             if($form->isValid()){
-             //   $entity = $form->getData() ;
+                $entity = $form->getData() ;
                 $em = $this->getDoctrine()->getManager() ;
                 $entity->setUser($user);
                 $em->persist($entity);
@@ -94,12 +99,34 @@ class CartController extends Controller
         ));
     }
 
+
     /**
-     * TODO
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function validateAction(Request $request){
-        return $this->render('EcommerceBundle:Public:Cart/validate.html.twig');
+        $session = $request->getSession();
+
+        if($request->getMethod() == 'POST'){
+            $this->setDeliveryOnSession($request) ;
+        }
+
+        $em = $this->getDoctrine()->getManager() ;
+        $adress = $session->get('adress') ;
+        $cart  = $session->get('cart') ;
+
+        $products = $em->getRepository('EcommerceBundle:Products')->findArray(array_keys($cart));
+        $delivery =  $em->getRepository('UsersBundle:UserAdress')->find($adress['deliveryAdress']);
+        $invoic =  $em->getRepository('UsersBundle:UserAdress')->find($adress['invoicAdress']);
+
+        return $this->render('EcommerceBundle:Public:Cart/validate.html.twig', array(
+            'products' => $products,
+            'delivery' => $delivery,
+            'invoic' => $invoic,
+            'cart' => $cart,
+            'userDelivery' => $delivery->getUser(),
+            'userInvoic' => $delivery->getUser(),
+        ));
     }
 
     /**
@@ -112,8 +139,7 @@ class CartController extends Controller
     public function addAction($id, Request $request){
 
         $session =  $request->getSession() ;
-        $qte = $request->query->get('qte');
-//        $session->remove('cart') ;
+        $qte = $request->query->get('qte');;
         if(!$session->has('cart')){
             $session->set('cart', array()) ;
         }
@@ -162,5 +188,27 @@ class CartController extends Controller
         return $this->redirect($this->generateUrl('_cart')) ;
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function setDeliveryOnSession(Request $request){
+        $session = $request->getSession();
+        $deliveryAdress = $request->request->get('deliveryAdress') ;
+        $invoicAdress = $request->request->get('invoicAdress') ;
+        if(!$session->has('adress')){
+            $session->set('adress', array());
+        }
+        $adress = $session->get('adress') ;
+        if($deliveryAdress != null  && $invoicAdress !=null  ){
+            $adress['deliveryAdress'] = $deliveryAdress ;
+            $adress['invoicAdress'] = $invoicAdress ;
+        } else {
+            $this->addFlash("danger", "Vous devez séléctionné une adresse de livraison") ;
+            return $this->render($this->generateUrl('_delvery')) ;
+        }
+        $session->set('adress', $adress) ;
+    }
 }
 
