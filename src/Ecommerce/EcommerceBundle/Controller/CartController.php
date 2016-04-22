@@ -29,6 +29,15 @@ class CartController extends Controller
         if(!$session->has('cart')){
             $session->set('cart', array()) ;
         }
+        if(!$session->has('lastPath')){
+            $session->set('lastPath',array(
+                "route" => '_cart'
+            )) ;
+        } else {
+            $session->set('lastPath', array(
+                "route" => "_cart"
+            )) ;
+        }
         $cart = $session->get('cart') ;
         $em=$this->getDoctrine()->getManager() ;
         $products = $em->getRepository('EcommerceBundle:Products')->findArray(array_keys($cart));
@@ -123,6 +132,15 @@ class CartController extends Controller
             $this->addFlash('success', 'Article ajouté au panier');
         }
         $session->set('cart', $cart) ;
+        if(!$session->has('lastPath')){
+            $session->set('lastPath',array(
+                "route" => '_cart'
+            )) ;
+        } else {
+            $session->set('lastPath', array(
+                "route" => "_cart"
+            )) ;
+        }
         return $this->redirect($this->generateUrl('_cart')) ;
     }
 

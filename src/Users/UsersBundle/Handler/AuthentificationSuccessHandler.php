@@ -29,23 +29,18 @@ class AuthentificationSuccessHandler implements AuthenticationSuccessHandlerInte
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        var_dump($request->server->get('HTTP_REFERER'));
-        die();
+
         $session = $request->getSession();
         if(!$session->has('lastPath')){
             $route = '_homepage';
         } else {
-            $route = $session->get('lastPath') ;
+            $route = $session->get('lastPath')['route'] ;
         }
 
         if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('_homepage_admin'));
         } else {
-            if($route['params'] != null){
-                $response = new RedirectResponse($this->router->generate($route['route'],$route['params']));
-            } else {
-                $response = new RedirectResponse($this->router->generate($route['route']));
-            }
+                $response = new RedirectResponse($this->router->generate($route));
 
         }
         $session->getFlashBag()->add('success', 'Connexion réussi !');
