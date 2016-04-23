@@ -13,3 +13,6 @@ services:
         arguments: ['@service_container', '@session']
         tags:
             - { name : kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    setNewRef:
+        class: Ecommerce\EcommerceBundle\Services\GetReference
+        arguments : ['@security.context', '@doctrine.orm.entity_manager']

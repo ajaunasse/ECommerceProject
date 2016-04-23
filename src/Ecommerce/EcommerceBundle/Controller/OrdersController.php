@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Users\UsersBundle\Entity\UserAdress;
 use Ecommerce\EcommerceBundle\Entity\Products;
 use Symfony\Component\HttpFoundation\Response;
+use Ecommerce\EcommerceBundle\Services\GetReference;
 
 class OrdersController extends Controller
 {
@@ -61,7 +62,7 @@ class OrdersController extends Controller
             throw $this->createNotFoundException("La commande n'existe pas ou a déjà été validée ! ") ;
         } else {
             $order->setValidate(1) ;
-            $order->setReference($token) ;
+            $order->setReference($this->container->get('setNewRef')->reference()) ;
             $em->flush();
             $session->remove('order');
             $session->remove('adress');
