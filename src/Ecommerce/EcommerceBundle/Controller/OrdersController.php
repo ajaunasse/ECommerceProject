@@ -45,6 +45,34 @@ class OrdersController extends Controller
         return new Response($order->getId());
     }
 
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @param $token
+     * @return Response
+     */
+    public function paymentAction(Request $request, $id, $token){
+        $em = $this->getDoctrine()->getManager() ;
+        $order = $em->getRepository('EcommerceBundle:Orders')->find($id) ;
+        $session = $request->getSession();
+
+        if(!$order || $order->getValidate() != 0){
+            throw $this->createNotFoundException("La commande n'existe pas ou a déjà été validée ! ") ;
+        } else {
+            $order->setValidate(1) ;
+            $order->setReference($token) ;
+            $em->flush();
+            $session->remove('order');
+            $session->remove('adress');
+            $session->remove('cart') ;
+
+            $this->addFlash('success', "Commande validée avec succès ! Vous pouvez voir l'avancement dans votre compte") ;
+
+            return $this->render('EcommerceBundle:Public:Orders/invoic.html.twig');
+        }
+    }
+
     /**
      * @param Request $request
      * @return array
@@ -87,36 +115,34 @@ class OrdersController extends Controller
                 'priceHT' => round(($product->getPrice()),2),
                 'priceTTC' => round(($product->getPrice() * $product->getTva()->getMultiplicate()),2),
             ) ;
-
-            //delivery
-            $order['delivery'] = array(
-                    'firstname' =>  $delivery->getUser()->getFirstName(),
-                    'lastname' =>  $delivery->getUser()->getLastName(),
-                    'email' =>  $delivery->getUser()->getEmail(),
-                    'phone' =>  $delivery->getPhone(),
-                    'adress' => $delivery->getAdress(),
-                    'complement' => $delivery->getComplement(),
-                    'city'  => $delivery->getCity(),
-                    'country' => $delivery->getCountry(),
-                    'postalcode' => $delivery->getPostcode()
-            );
-            //invoic
-            $order['invoic'] = array(
-                'firstname' =>  $invoic->getUser()->getFirstName(),
-                'lastname' =>  $invoic->getUser()->getLastName(),
-                'email' =>  $invoic->getUser()->getEmail(),
-                'phone' =>  $invoic->getPhone(),
-                'adress' => $invoic->getAdress(),
-                'complement' => $invoic->getComplement(),
-                'city'  => $invoic->getCity(),
-                'country' => $invoic->getCountry(),
-                'postalcode' => $invoic->getPostcode()
-            );
         } // End ForEach
-
+        //delivery
+        $order['delivery'] = array(
+            'firstname' =>  $delivery->getUser()->getFirstName(),
+            'lastname' =>  $delivery->getUser()->getLastName(),
+            'email' =>  $delivery->getUser()->getEmail(),
+            'phone' =>  $delivery->getPhone(),
+            'adress' => $delivery->getAdress(),
+            'complement' => $delivery->getComplement(),
+            'city'  => $delivery->getCity(),
+            'country' => $delivery->getCountry(),
+            'postalcode' => $delivery->getPostcode()
+        );
+        //invoic
+        $order['invoic'] = array(
+            'firstname' =>  $invoic->getUser()->getFirstName(),
+            'lastname' =>  $invoic->getUser()->getLastName(),
+            'email' =>  $invoic->getUser()->getEmail(),
+            'phone' =>  $invoic->getPhone(),
+            'adress' => $invoic->getAdress(),
+            'complement' => $invoic->getComplement(),
+            'city'  => $invoic->getCity(),
+            'country' => $invoic->getCountry(),
+            'postalcode' => $invoic->getPostcode()
+        );
         //Amount
-        $order['amountHT']  = round($amountHT);
-        $order['amountTTC'] = round($amountTTC);
+        $order['amountHT']  = round($amountHT,2);
+        $order['amountTTC'] = round($amountTTC,2);
 
         //Token
         $order['token'] = bin2hex($generator->nextBytes(20)) ;

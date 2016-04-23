@@ -1,0 +1,6 @@
+_payment:
+    path : /api/payment/{id}/{token}
+    defaults: { _controller: EcommerceBundle:Orders:payment}
+    requirements:
+        id : \d+
+        _method: POST

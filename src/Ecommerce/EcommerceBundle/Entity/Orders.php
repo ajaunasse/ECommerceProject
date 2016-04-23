@@ -36,9 +36,9 @@ class Orders
     private $date;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="reference", type="integer")
+     * @ORM\Column(name="reference", type="string", length=50)
      */
     private $reference;
 

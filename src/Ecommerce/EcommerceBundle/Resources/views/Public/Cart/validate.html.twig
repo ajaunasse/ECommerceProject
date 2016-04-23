@@ -1,5 +1,8 @@
 {% extends ":layout:Public/layout.html.twig" %}
+{% set idOrder = order.id %}
+{% set date = order.date %}
 {% set order = order.order %}
+
 {% block body %}
     <div class="progress">
         <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
@@ -72,7 +75,13 @@
     </dl>
     <hr>
     <div class="clearfix"></div>
-    <a href="#" class="btn btn-success pull-right">Confirmer et payer</a>
+    <form action="{{ path('_payment', {'id': idOrder, 'token' : order.token }) }}" method="POST">
+        <input name="token" type="hidden" value="{{ order.token }}">
+        <input name="amountTTC" type="hidden" value="{{ order.amountTTC }}">
+        <input name="date" type="hidden" value="{{ date|date('dmyhms') }}">
+        <button type="submit" class="btn btn-success pull-right">Confirmer et payer</button>
+    </form>
+
     <a href="{{ path('_delivery') }}" class="btn btn-primary">Retour à l'étape précédent</a>
     </div>
 

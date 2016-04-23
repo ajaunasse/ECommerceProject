@@ -26,3 +26,7 @@ product:
 admin:
     resource : "@EcommerceBundle/Resources/config/routing/routing_admin.yml"
     prefix: /Admin
+#Orders
+orders:
+    resource : "@EcommerceBundle/Resources/config/routing/routing_orders.yml"
+    prefix: /Orders
