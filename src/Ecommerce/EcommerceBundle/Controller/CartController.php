@@ -110,22 +110,12 @@ class CartController extends Controller
         if($request->getMethod() == 'POST'){
             $this->setDeliveryOnSession($request) ;
         }
-
         $em = $this->getDoctrine()->getManager() ;
-        $adress = $session->get('adress') ;
-        $cart  = $session->get('cart') ;
-
-        $products = $em->getRepository('EcommerceBundle:Products')->findArray(array_keys($cart));
-        $delivery =  $em->getRepository('UsersBundle:UserAdress')->find($adress['deliveryAdress']);
-        $invoic =  $em->getRepository('UsersBundle:UserAdress')->find($adress['invoicAdress']);
-
+        $prepareOrder = $this->forward('EcommerceBundle:Orders:order');
+        $order =  $em->getRepository('EcommerceBundle:Orders')->find($prepareOrder->getContent()) ;
+        dump($order) ;
         return $this->render('EcommerceBundle:Public:Cart/validate.html.twig', array(
-            'products' => $products,
-            'delivery' => $delivery,
-            'invoic' => $invoic,
-            'cart' => $cart,
-            'userDelivery' => $delivery->getUser(),
-            'userInvoic' => $delivery->getUser(),
+                'order' => $order,
         ));
     }
 

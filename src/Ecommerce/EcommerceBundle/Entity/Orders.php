@@ -3,6 +3,7 @@
 namespace Ecommerce\EcommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Orders
  *
@@ -48,16 +49,11 @@ class Orders
     private $user ;
 
     /**
-     * @var ArrayCollection Products $products
-     * Owning Side
+     * @var array
      *
-     * @ORM\ManyToMany(targetEntity="Ecommerce\EcommerceBundle\Entity\Products", inversedBy="orders", cascade={"persist", "merge"})
-     * @ORM\JoinTable(name="inOrder",
-     *   joinColumns={@ORM\JoinColumn(name="id_order", referencedColumnName="id")},
-     *   inverseJoinColumns={@ORM\JoinColumn(name="id_product", referencedColumnName="id")}
-     * )
+     * @ORM\Column(name="`order`", type="array")
      */
-    private $products;
+    private $order;
 
 
     /**
@@ -182,23 +178,28 @@ class Orders
         return $this;
     }
 
+
+
     /**
-     * Remove products
+     * Set order
      *
-     * @param \Ecommerce\EcommerceBundle\Entity\Products $products
+     * @param array $order
+     * @return Orders
      */
-    public function removeProduct(\Ecommerce\EcommerceBundle\Entity\Products $products)
+    public function setOrder($order)
     {
-        $this->products->removeElement($products);
+        $this->order = $order;
+
+        return $this;
     }
 
     /**
-     * Get products
+     * Get order
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return array 
      */
-    public function getProducts()
+    public function getOrder()
     {
-        return $this->products;
+        return $this->order;
     }
 }
