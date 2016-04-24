@@ -89,13 +89,18 @@ class ProductController extends Controller
             $form->handleRequest($request);
             $value = ($form['search']->getData());
             $em = $this->getDoctrine()->getManager() ;
-            $products = $em->getRepository('EcommerceBundle:Products')->search($value) ;
+            $findproducts = $em->getRepository('EcommerceBundle:Products')->search($value) ;
         }
-        if(!$products){
+        if(!$findproducts){
             $this->addFlash('danger', 'Acun article trouvé correspondant à la recherche : '.$value);
         }
-
-
+        //Pagination
+        $paginator  = $this->get('knp_paginator');
+        $products = $paginator->paginate(
+            $findproducts,
+            $request->query->getInt('page', 1),
+            3
+        );
         return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
             'products' => $products
         ));
