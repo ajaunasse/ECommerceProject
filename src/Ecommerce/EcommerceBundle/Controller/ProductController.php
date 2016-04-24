@@ -28,15 +28,22 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager() ;
         $session =  $request->getSession() ;
         if($category != null){
-            $products = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category->getId()) ;
+            $findproducts = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category->getId()) ;
         } else {
-            $products = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
+            $findproducts = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
         }
         if($session->has('cart')){
             $cart = $session->get('cart') ;
         } else {
             $cart = false ;
         }
+        //Pagination
+        $paginator  = $this->get('knp_paginator');
+        $products = $paginator->paginate(
+            $findproducts,
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('EcommerceBundle:Public:Products/products.html.twig', array(
             'products' => $products,
             'cart'      => $cart,
@@ -87,6 +94,8 @@ class ProductController extends Controller
         if(!$products){
             $this->addFlash('danger', 'Acun article trouvé correspondant à la recherche : '.$value);
         }
+
+
         return $this->render('EcommerceBundle:Public:Products/products.html.twig',array(
             'products' => $products
         ));

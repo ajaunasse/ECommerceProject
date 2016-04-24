@@ -9,18 +9,23 @@
 
 </head>
 <body>
+<style>
+    h1{
+        text-align:center;
+    }
+    *{
+        list-style: none;
+    }
+    .adress_invoic{
+        display: inline-block;
+    }
+    .adress_delivery{
+        display: inline-block;
+    }
+</style>
+
 <div class="container">
-    <style>
-        h1{
-            text-align:center;
-        }
-        *{
-            list-style: none;
-        }
-        .adress_invoic{
-            float : left;
-        }
-    </style>
+
 
     <div class="row">
         <h1> Facture de la commande  n° : {{ invoic.reference }} </h1>
@@ -53,7 +58,7 @@
         </div>
         <div class="adress_delivery">
             <h3>  Adresse de livraison</h3>
-            <ul class="list-unstyled">
+            <ul >
                 <li>{{ invoic.order.delivery.lastname }} {{ invoic.order.delivery.firstname }}</li>
                 <li>{{ invoic.order.delivery.adress}}</li>
                 <li>{{ invoic.order.delivery.complement}}</li>
