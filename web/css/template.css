@@ -5,7 +5,9 @@
  */
 
 
-
+body{
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 .slide-image {
     width: 100%;
 }
@@ -47,6 +49,31 @@
     color: #333;
 }
 
-footer {
-    margin: 50px 0;
+/*footer {*/
+    /*margin: 50px 0;*/
+
+/*}*/
+#footer{
+    background-color: #2c3e50;
+    color : #FFF;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+

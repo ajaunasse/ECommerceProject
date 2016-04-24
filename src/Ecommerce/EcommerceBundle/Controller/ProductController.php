@@ -42,7 +42,7 @@ class ProductController extends Controller
         $products = $paginator->paginate(
             $findproducts,
             $request->query->getInt('page', 1),
-            10
+            3
         );
         return $this->render('EcommerceBundle:Public:Products/products.html.twig', array(
             'products' => $products,

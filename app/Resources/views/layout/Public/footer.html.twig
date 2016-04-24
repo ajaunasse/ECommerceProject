@@ -1,25 +1,25 @@
-<hr />
+<br><br><br><hr>
 <footer id="footer" class="vspace20">
     <div class="container">
         <div class="row">
-            <div class="span4 offset1">
+            <div class="col-md-4">
                 <h4>Informations</h4>
                 <ul class="nav nav-stacked">
                     {% render(controller('PagesBundle:Pages:menu')) %}
                 </ul>
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 <h4>Notre entrepôt</h4>
                 <p><i class="icon-map-marker"></i> {{ ville }} - {{ adresse }}</p>
             </div>
-            <div class="span2">
+            <div class="col-md-4">
                 <h4>Nous contacter</h4>
                 <p><i class="icon-phone"></i> Tel: {{ telephone }}</p>
                 <p><i class="icon-print"></i> Fax: {{ fax }}</p>
             </div>
         </div>
         <div class="row">
-            <div class="span4">
+            <div class="col-md-4">
                 <p>&copy; Copyright 2014 -  {{ "now"|date('Y') }} | {{ company }}</p>
             </div>
         </div>
