@@ -23,12 +23,12 @@ class ProductController extends Controller
      * @param Category|null $category
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request,Category $category = null){
+    public function indexAction(Request $request, Category $category=null ){
 
         $em = $this->getDoctrine()->getManager() ;
         $session =  $request->getSession() ;
         if($category != null){
-            $findproducts = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category->getId()) ;
+            $findproducts = $em->getRepository('EcommerceBundle:Products')->getAllByCategorie($category) ;
         } else {
             $findproducts = $em->getRepository("EcommerceBundle:Products")->findBy(array('available'=>1)) ;
         }

@@ -1,6 +1,7 @@
-
-<form action="{{ path('_search') }}" method="POST" class="navbar-form form-search pull-right">
-    {{ form_widget(form.search) }}
-    <button type="submit" class="btn">Rechercher</button>
+<form class="navbar-form navbar-left" role="search"  action="{{ path('_search') }}" method="POST">
+    <div class="form-group">
+        {{ form_widget(form.search) }}
+    </div>
+    <button type="submit" class="btn btn-default">Rechercher</button>
     {{ form_widget(form) }}
 </form>

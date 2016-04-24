@@ -1,7 +1,11 @@
- <div class="well">
-        <ul class="nav nav-list">
-            <li class="nav-header">Catégories</li>
+ {#<div class="well">#}
+        {#<ul class="nav nav-list">#}
+            {#<li class="nav-header">Catégories</li>#}
 
-            {% render(controller('EcommerceBundle:Category:list')) %}
-        </ul>
-    </div>
+            {#{% render(controller('EcommerceBundle:Category:list')) %}#}
+        {#</ul>#}
+    {#</div>#}
+ <p class="lead"><Category></Category></p>
+ <div class="list-group">
+        {% render(controller('EcommerceBundle:Category:list', {'param' : param }))%}
+ </div>

@@ -25,7 +25,7 @@ class SearchType extends AbstractType
             'label' => false,
             'attr' => array(
                 'placeholder' => 'Search..',
-                'class' => 'input-medium search-query',
+                'class' => 'form-control',
             )
         )) ;
     }

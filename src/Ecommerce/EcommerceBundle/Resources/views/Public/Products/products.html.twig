@@ -1,25 +1,34 @@
 {% extends ":layout:Public/layout.html.twig" %}
 {% block body %}
-                <ul class="thumbnails">
-                    {% for product in products %}
-                        <li class="span4">
-                            <div class="thumbnail">
-                                <img src="product.image" alt="imgLogo" width="300" height="300">
-                                <div class="caption">
-                                    <h4>{{ product.name }}</h4>
-                                    <p>{{ product.price |tva(product.tva.multiplicate) }} €</p>
-                                    <a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
-                                    {% if cart[product.id] is not defined %}
-                                        <a class="btn btn-success" href="{{ path('_add', {'id':product.id}) }}">Ajouter au panier</a>
-                                    {% else %}
-                                        <a class="btn btn-danger" href="{{ path('_delete', {'id':product.id}) }}">Supprimer du panier</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div class="pagination">
-                    {{ knp_pagination_render(products) }}
+    {% for product in products %}
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">{{ product.price |tva(product.tva.multiplicate) }} €</h4>
+                    <h4>{{ product.name }}</h4>
+                    <p>{{ product.description }}</p>
+                    <hr>
+
                 </div>
+
+                <div class="ratings">
+                    <p><a class="btn btn-primary" href="{{ path('_product', { 'id' : product.id }) }}">Plus d'infos</a>
+                        <a class="btn btn-success" href="{{ path('_add', { 'id' : product.id }) }}">Ajouter au panier</a></p>
+                    <p class="pull-right">15 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {{ knp_pagination_render(products) }}
+
 {% endblock %}
