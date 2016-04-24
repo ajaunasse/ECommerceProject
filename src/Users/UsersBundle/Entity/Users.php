@@ -13,7 +13,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection ;
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Users\UsersBundle\Repository\UsersRepository")
  * @ORM\Table(name="users")
  */
 class Users extends BaseUser

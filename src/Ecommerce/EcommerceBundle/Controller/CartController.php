@@ -108,12 +108,12 @@ class CartController extends Controller
         $session = $request->getSession();
 
         if($request->getMethod() == 'POST'){
+            $this->container->getParameter('kernel.root_dir').'/../web/';
             $this->setDeliveryOnSession($request) ;
         }
         $em = $this->getDoctrine()->getManager() ;
         $prepareOrder = $this->forward('EcommerceBundle:Orders:order');
         $order =  $em->getRepository('EcommerceBundle:Orders')->find($prepareOrder->getContent()) ;
-        dump($order) ;
         return $this->render('EcommerceBundle:Public:Cart/validate.html.twig', array(
                 'order' => $order,
         ));

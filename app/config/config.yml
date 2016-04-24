@@ -75,3 +75,10 @@ fos_user:
     registration:
         form:
             type: Users\UsersBundle\Form\RegistrationType
+ensepar_html2pdf:
+    orientation: P
+    format: A4
+    lang: fr
+    unicode: true
+    encoding: UTF-8
+    margin: [10,15,10,15]

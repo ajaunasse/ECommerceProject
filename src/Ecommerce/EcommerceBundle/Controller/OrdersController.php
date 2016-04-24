@@ -90,6 +90,7 @@ class OrdersController extends Controller
         $order = array() ;
         $amountHT = 0 ;
         $amountTTC = 0 ;
+        $totalTva = 0 ;
         $invoic = $em->getRepository('UsersBundle:UserAdress')->find($adress['invoicAdress']);
         $delivery = $em->getRepository('UsersBundle:UserAdress')->find($adress['deliveryAdress']);
         $products = $em->getRepository('EcommerceBundle:Products')->findArray(array_keys($cart));
@@ -104,9 +105,11 @@ class OrdersController extends Controller
             //Calcul des TVA
             if(!isset($order['tva'][$product->getTva()->getValue().'%'])){
                 $order['tva'][$product->getTva()->getValue().'%'] = round(($priceTTC - $priceHT),2);
+
             } else {
                 $order['tva'][$product->getTva()->getValue().'%'] += round(($priceTTC - $priceHT),2);
             }
+            $totalTva += round($priceTTC - $priceHT,2) ;
 
             //Products
             $order['products'][$product->getId()] = array(
@@ -143,7 +146,7 @@ class OrdersController extends Controller
         );
         //Amount
         $order['amountHT']  = round($amountHT,2);
-        $order['amountTTC'] = round($amountTTC,2);
+        $order['amountTTC'] = round($amountHT + $totalTva,2);
 
         //Token
         $order['token'] = bin2hex($generator->nextBytes(20)) ;

@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrdersRepository extends EntityRepository
 {
+
+    public function getInvoicByUser($user){
+        $qb = $this->createQueryBuilder('u')
+                ->select('u')
+                ->where('u.user = :user')
+                ->andWhere('u.validate = 1')
+                ->andWhere('u.reference != 0')
+                ->orderBy('u.id')
+                ->setParameter('user', $user);
+
+        return $qb->getQuery()->getResult() ;
+    }
 }

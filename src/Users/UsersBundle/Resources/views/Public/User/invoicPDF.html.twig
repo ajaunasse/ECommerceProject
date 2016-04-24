@@ -1,0 +1,110 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Facture</title>
+    <link rel="stylesheet" href="{{ asset('css/style_invoic.css') }}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <style>
+        h1{
+            text-align:center;
+        }
+        *{
+            list-style: none;
+        }
+        .adress_invoic{
+            float : left;
+        }
+    </style>
+
+    <div class="row">
+        <h1> Facture de la commande  n° : {{ invoic.reference }} </h1>
+        <hr>
+        {#<table>#}
+            {#<tr>#}
+                {#<td colspan="1"></td>#}
+                {#<td colspan="1"><h1>Facture</h1></td>#}
+                {#<td colspan="1"></td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<td width="80">Page</td>#}
+                {#<td width="100">Date</td>#}
+                {#<td width="120">Ref</td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<td class="color">[[page_nb]]</td>#}
+                {#<td class="color">{{ invoic.date|date('d/m/Y H:m:s') }}</td>#}
+                {#<td class="color">{{ invoic.reference }}</td>#}
+            {#</tr>#}
+        {#</table>#}
+        <div class="adress_invoic">
+            <h3>Adresse de Facturation</h3>
+            <ul class="list-unstyled">
+                <li>{{ invoic.order.invoic.lastname }} {{ invoic.order.invoic.firstname }}</li>
+                <li>{{ invoic.order.invoic.adress}}</li>
+                <li>{{ invoic.order.invoic.complement}}</li>
+                <li>{{ invoic.order.invoic.city }} {{ invoic.order.invoic.postalcode }} | {{ invoic.order.invoic.country }}</li>
+            </ul>
+        </div>
+        <div class="adress_delivery">
+            <h3>  Adresse de livraison</h3>
+            <ul class="list-unstyled">
+                <li>{{ invoic.order.delivery.lastname }} {{ invoic.order.delivery.firstname }}</li>
+                <li>{{ invoic.order.delivery.adress}}</li>
+                <li>{{ invoic.order.delivery.complement}}</li>
+                <li>{{ invoic.order.delivery.city }} {{ invoic.order.delivery.postalcode }} | {{ invoic.order.delivery.country }}</li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <table class="table-product">
+                <thead>
+                <tr>
+                    <th width="280">DESIGNATION</th>
+                    <th width="105">QUANTITE</th>
+                    <th width="100">P.U - HT</th>
+                    <th width="105">MONTANT HT</th>
+                    <th width="105">MONTANT TTC</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                {% for product in invoic.order.products %}
+                    <tr>
+                        <td class="color">{{ product.name }}</td>
+                        <td class="color">{{ product.quantity }}</td>
+                        <td class="color">{{ product.priceHT }}</td>
+                        <td class="color">{{ product.priceHT * product.quantity }}</td>
+                        <td class="color">{{ product.priceTTC * product.quantity }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <hr>
+
+        <div class="total">
+           <p> <strong>TOTAL HT :</strong>
+                {{ invoic.order.amountHT }} € <br>
+                {%  for key,tva in invoic.order.tva  %}
+                    <strong>TVA {{ key  }} </strong> : {{ tva }} € <br>
+                {% endfor %}
+                <strong>TOTAL TTC :</strong> {{ invoic.order.amountTTC }} €
+            </p>
+        </div>
+
+
+        <div id="footer">
+            <span class="color strong"></span>
+            <br />
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
