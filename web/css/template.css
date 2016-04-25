@@ -77,3 +77,12 @@ body {
     width: 100%;
 }
 
+.dropdown-menu >  {
+
+}
+.spe {
+    background-color: #2c3e50 ;
+}
+.dropdown-menu>li>a{
+    color:#fff;
+}

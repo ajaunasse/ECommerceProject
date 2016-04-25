@@ -24,15 +24,15 @@
                             Mon compte
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu spe">
                             <li>
-
-                                <a href="{{ path('fos_user_profile_show') }}"> <i class="glyphicon glyphicon-folder-open">  </i>
-                                    Mes informations</a>
+                                <a href="{{ path('fos_user_profile_show') }}">
+                                    <i class="glyphicon glyphicon-bookmark"> </i>
+                                     Mes informations </a>
                             </li>
                             <li>
                                 <a href="{{ path('fos_user_profile_edit') }}">
-                                    <i class="glyphicon glyphicon-wrench"> </i>
+                                    <i class="glyphicon glyphicon-edit"> </i>
                                       Editer Mes informations
                                 </a>
                             </li>
@@ -50,6 +50,7 @@
                             </li>
                             <li>
                                 <a href="{{ path('_address_user', {'id' : app.user.id }) }}">
+                                    <i class="glyphicon glyphicon-share"></i>
                                     Mes adresses
                                 </a>
                             </li>
