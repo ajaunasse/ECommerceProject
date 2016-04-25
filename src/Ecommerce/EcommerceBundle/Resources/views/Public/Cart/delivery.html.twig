@@ -1,43 +1,47 @@
 {% extends ":layout:Public/layout.html.twig" %}
 {% block body %}
-            <h2>Livraison</h2>
-            <div id="collapseOne" class="accordion-body collapse in">
-                <div class="accordion-inner">
-                    <div class="span4">
-                        <form action="{{ path('_validate') }}" method="post">
-                            <h4>Adresse de livraison</h4>
-                            {% if user.adress|length == 0 %}
-                                <div class="alert alert-danger">Aucune adresse enregistrer, Veuillez enregistrer une adresse de livraison/facturation</div>
-                            {% else %}
-                                {% for adress in user.adress %}
-                                    <label class="radio">
-                                        <input type="radio" name="deliveryAdress" id="optionsRadios1" value="{{ adress.id }}" {% if loop.index0 ==0  %} checked="checked" {% endif %}>
-                                        {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
-                                    </label>
-                                {% endfor %}
-                                <br /><br />
-                            {% endif %}
-                                <h4>Adresse de facturation</h4>
-                             {% if user.adress|length == 0 %}
-                                <div class="alert alert-danger">Aucune adresse enregistrer, Veuillez enregistrer une adresse de livraison/facturation</div>
-                            {% else %}
-                                {% for adress in user.adress %}
-                                    <label class="radio">
-                                        <input type="radio" name="invoicAdress" id="optionsRadios1" value="{{ adress.id }}" {% if loop.index0==0  %} checked="checked" {% endif %}>
-                                        {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
-                                    </label>
-                                {% endfor %}
-                                <button class="btn btn-primary">Valider mon adresse de livraison</button>
-                            {% endif %}
+    <div class="col-md-12">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                Etape : 2 / 4
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <form action="{{ path('_validate') }}" method="post">
+            <h4>Adresse de livraison</h4>
+            {% if user.adress|length == 0 %}
+                <div class="alert alert-danger">Aucune adresse enregistrer, Veuillez enregistrer une adresse de livraison/facturation</div>
+            {% else %}
+                {% for adress in user.adress %}
+                    <label class="radio">
+                        <input type="radio" name="deliveryAdress" id="optionsRadios1" value="{{ adress.id }}" {% if loop.index0 ==0  %} checked="checked" {% endif %}>
+                        {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}<a href="#"><i class="icon-trash"></i></a>
+                    </label>
+                {% endfor %}
+                <br /><br />
+            {% endif %}
+            <h4>Adresse de facturation</h4>
+            {% if user.adress|length == 0 %}
+                <div class="alert alert-danger">Aucune adresse enregistrer, Veuillez enregistrer une adresse de livraison/facturation</div>
+            {% else %}
+                {% for adress in user.adress %}
+                    <label class="radio">
+                        <input type="radio" name="invoicAdress" id="optionsRadios1" value="{{ adress.id }}" {% if loop.index0==0  %} checked="checked" {% endif %}>
+                        {{ adress.adress }}, {{ adress.postcode }} {{ adress.city }}
+                        <a href="{{ path('_address_del', {'address' : adress.id }) }}"><i class="glyphicon glyphicon-trash"></i> </a>
+                    </label>
+                {% endfor %}
+                <button class="btn btn-primary">Valider mon adresse de livraison</button>
+            {% endif %}
+        </form>
+     </div>
 
-                        </form>
-                    </div>
-                    <div class="span3">
-                        <h4>Ajouter une nouvelle adresse</h4>
-                        <form action="{{ path('_delivery') }}" method="POST" {{ form_enctype(form) }}>
-                            {{ form_widget(form) }}
-                            <input type="submit" class="btn btn-primary">
-                        </form>
-                    </div>
-                </div>
+    <div class="col-md-6">
+        <h4>Ajouter une nouvelle adresse</h4>
+        <form action="{{ path('_delivery') }}" method="POST" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-primary">
+        </form>
+    </div>
     {% endblock %}

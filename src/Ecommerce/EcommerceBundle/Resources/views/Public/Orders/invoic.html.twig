@@ -2,11 +2,29 @@
 
 {% block body %}
 
-
-    <div class="row">
-        <div class="span6">
-            <p> Vous pouvez maintenant téléchargé votre facture : </p>
+    <div class="col-md-12">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                Etape : 4 / 4
+            </div>
         </div>
     </div>
+   <div class="col-md-12">
+       <div class="panel panel-success">
+           <div class="panel-heading">
+               <h3 class="panel-title">Finalisation de la commande</h3>
+           </div>
+           <div class="panel-body">
+               <div class="text-center">
+                   <p> Félicitation ! Votre commande a été validée et est en cours de livraison</p>
+                   <p> Nous vous remercions pour votre confiance</p>
+                   <p> Vous pouvez dès à présent télécharger votre facture PDF : </p>
+                   <a  href="{{ path('_invoic_pdf', {'id' : id, 'token': token}) }}" target="_blank">Facture.pdf</a>
+               </div>
+           </div>
+       </div>
+   </div>
+
+
 
 {% endblock %}

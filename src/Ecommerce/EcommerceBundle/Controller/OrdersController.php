@@ -68,9 +68,12 @@ class OrdersController extends Controller
             $session->remove('adress');
             $session->remove('cart') ;
 
-            $this->addFlash('success', "Commande validée avec succès ! Vous pouvez voir l'avancement dans votre compte") ;
+            $this->addFlash('success', "Commande validée avec succès !") ;
 
-            return $this->render('EcommerceBundle:Public:Orders/invoic.html.twig');
+            return $this->render('EcommerceBundle:Public:Orders/invoic.html.twig', array(
+                'id' => $id,
+                'token' => $token
+            ));
         }
     }
 
