@@ -1,0 +1,43 @@
+{% extends ":layout:Public/layout.html.twig" %}
+{% block body %}
+    <div class="col-md-12">
+        <h2> Mes adresses : </h2>
+        <hr>
+        <a href="{{ path('_address_add') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Ajouter une adresse</a>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Adresse / Complément</th>
+                    <th>Ville</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for address in addresses %}
+                <tr>
+                    <th scope="row">{{ address.id }}</th>
+                    <td>{{ address.user.lastname }} {{ address.user.firstname }}</td>
+                    <td>{{ address.adress }} {% if address.complement != null %} / {{ address.complement }} {% endif %}</td>
+                    <td>{{ address.city }} - {{ address.postcode }} |{{ address.country }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('_address_edit', {'address' : address.id}) }}"><i class="glyphicon glyphicon-cloud-upload"></i> Editer</a></li>
+                                <li><a href="{{ path('_address_del', {'address' : address.id }) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

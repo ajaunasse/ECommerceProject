@@ -15,6 +15,26 @@ _invoic_pdf:
 
 _invoic_html:
     path: /invoic/HTML/{id}/{token}
-    defaults : {_controller :UsersBundle:User:invoicHtml}
+    defaults: {_controller :UsersBundle:User:invoicHtml}
     requirements:
         id: \d+
+
+#ROUTE LINKED TO ADDRESS USER FEATURES
+_address_user:
+    path: /address/{id}
+    defaults: { _controller :UsersBundle:User:address}
+    requirements:
+        id: \d+
+_address_add:
+    path: /address/add
+    defaults: {_controller:UsersBundle:User:addressAdd}
+_address_edit:
+    path: /address/edit/{address}
+    defaults : {_controller:UsersBundle:User:addressEdit}
+    requirements:
+        address: \d+
+_address_del:
+    path: /address/del/{address}
+    defaults : { _controller:UsersBundle:User:addressDel}
+    requirements:
+        address: \d+

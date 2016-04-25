@@ -15,12 +15,43 @@ class UserAdressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adress')
-            ->add('complement')
-            ->add('country')
-            ->add('city')
-            ->add('postcode')
-            ->add('phone')
+            ->add('adress','text', array(
+                'label' => 'address.address', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+            ))
+            ->add('complement','text', array(
+                'label' => 'address.complement', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'required' => false,
+            ))
+            ->add('country','text', array(
+                'label' => 'address.country', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+            ))
+            ->add('city','text', array(
+                'label' => 'address.city', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+            ))
+            ->add('postcode','text', array(
+                'label' => 'address.postcode', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => 'form-control',
+                ),
+            ))
+            ->add('phone','text', array(
+                'label' => 'address.phone', 'translation_domain' => 'FOSUserBundle',
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+            ))
             //->add('user')
         ;
     }
