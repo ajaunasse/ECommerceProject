@@ -1,20 +1,15 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-<div class="row">
-        {% include "UsersBundle:modules:nav-bar.html.twig" %}
-    <div class="span9">
-        <h2>Modifier mes informations</h2>
-        <div id="collapseOne" class="accordion-body collapse in">
-            <div class="accordion-inner">
-
-                <div class="span4">
-                    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-                    {{ form_widget(form) }}
-                    <div>
-                        <input class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-                    </div>
-                    {{ form_end(form) }}
+<div class="col-md-12">
+    <h2>Modifier mes informations</h2>
+    <hr>
+            <div class="col-md-6">
+                {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+                {{ form_widget(form) }}
+                <br>
+                <div>
+                    <input class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
                 </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
