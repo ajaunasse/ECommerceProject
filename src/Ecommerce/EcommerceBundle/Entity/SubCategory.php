@@ -28,6 +28,12 @@ class SubCategory
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Ecommerce\EcommerceBundle\Entity\Category", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $category ;
+
 
     /**
      * Get id
@@ -60,5 +66,28 @@ class SubCategory
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Ecommerce\EcommerceBundle\Entity\Category $category
+     * @return SubCategory
+     */
+    public function setCategory(\Ecommerce\EcommerceBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Ecommerce\EcommerceBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

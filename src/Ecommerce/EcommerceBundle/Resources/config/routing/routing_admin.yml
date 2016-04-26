@@ -1,3 +1,6 @@
 _homepage_admin:
     path:     /
     defaults: { _controller: EcommerceBundle:Admin:index }
+_catalog:
+    path: /Catalog
+    defaults: { _controller: EcommerceBundle:CatalogAdmin:index }

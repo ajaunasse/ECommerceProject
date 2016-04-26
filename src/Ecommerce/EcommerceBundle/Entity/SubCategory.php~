@@ -28,6 +28,12 @@ class SubCategory
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Ecommerce\EcommerceBundle\Entity\Category", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $category ;
+
 
     /**
      * Get id
