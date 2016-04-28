@@ -6,33 +6,54 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Pages
+ *
+ * @ORM\Table(name="pages")
+ * @ORM\Entity(repositoryClass="Pages\PagesBundle\Repository\PagesRepository")
  */
 class Pages
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetimetz")
      */
     private $date;
 
     /**
      * @var bool
+     *
+     * @ORM\Column(name="online", type="boolean")
      */
     private $online;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pages\PagesBundle\Entity\Modules", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $module ;
 
 
     /**
@@ -44,12 +65,6 @@ class Pages
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Pages\PagesBundle\Entity\Modules", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $module ;
 
     /**
      * Set title
@@ -141,5 +156,28 @@ class Pages
     public function getOnline()
     {
         return $this->online;
+    }
+
+    /**
+     * Set module
+     *
+     * @param \Pages\PagesBundle\Entity\Modules $module
+     * @return Pages
+     */
+    public function setModule(\Pages\PagesBundle\Entity\Modules $module)
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Pages\PagesBundle\Entity\Modules 
+     */
+    public function getModule()
+    {
+        return $this->module;
     }
 }

@@ -4,7 +4,14 @@ _homepage_admin:
 _catalog:
     path: /Catalog
     defaults: { _controller: EcommerceBundle:CatalogAdmin:index}
+#Page AdminRouting
+page_admin:
+    resource : "@PagesBundle/Resources/config/routing/routing_admin.yml"
+    prefix: /Page
+pages:
+    resource: "@PagesBundle/Resources/config/routing.yml"
+    prefix:   /Pages
 
-_pages:
-    path: /Page
-    defaults: {_controller :EcommerceBundle:PageAdmin:index}
+modules_admin:
+    resource: "@PagesBundle/Resources/config/routing/routing_module.yml"
+    prefix:   /Modules

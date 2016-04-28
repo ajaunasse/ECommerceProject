@@ -1,0 +1,21 @@
+{% extends ":layout:Admin/layout_admin.html.twig" %}
+
+{% block body %}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Module</a></li>
+        <li class="active">Création</li>
+    </ol>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Création d'un module</h2>
+        </div>
+        <div class="panel-body">
+            <form action="{{ path('_modules_add') }}" method="POST" {{ form_enctype(form) }}>
+                {{ form_widget(form) }}
+                <br>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+{% endblock %}

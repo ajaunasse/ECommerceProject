@@ -2,10 +2,8 @@ body{
     font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 body {
-  background-color: #f7f7f7;
   position: relative;
   margin: 0px;
-  font-size: 12px;
   padding: 0px;
 }
 
@@ -383,7 +381,7 @@ footer .copy{
 }
 
 body {
-  background-color: #eff0f3;
+
 }
 
 /** Login & Signup **/

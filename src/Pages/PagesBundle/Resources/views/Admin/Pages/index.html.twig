@@ -1,0 +1,69 @@
+{% extends ":layout:Admin/layout_admin.html.twig" %}
+
+{% block body %}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Gestion des pages</h2>
+        </div>
+        <div class="panel-body">
+            <div class="pull-right">
+                <a href="{{ path('_add_page') }}" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    Créer une page</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Statut</th>
+                    <th>Module</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if pages|length > 0 %}
+                    {% for page in pages%}
+                        <tr>
+                            <th scope="row">{{ page.id }}</th>
+                            <td><a href="#">{{ page.title}}</a></td>
+                            <td>{% if page.online == 1  %}
+                                    <span class="label label-success">En ligne</span>
+                                {% else %}
+                                    <span class="label label-danger">Hors ligne</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ page.module.name }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu spe">
+                                        <li><a href="#"><i class="glyphicon glyphicon-cloud-upload"></i> Editer</a></li>
+                                        <li><a href="#"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">
+                            <div class="alert alert-info"> Aucune pages</div>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+{% endblock %}

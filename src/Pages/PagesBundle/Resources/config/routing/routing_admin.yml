@@ -1,0 +1,10 @@
+_admin_page:
+    path: /{id}
+    defaults: {_controller :PagesBundle:PageAdmin:index}
+    requirements:
+        id:  \d+
+
+_add_page:
+    path: /add
+    defaults: {_controller:PagesBundle:PageAdmin:add}
+

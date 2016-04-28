@@ -27,12 +27,12 @@
 {% endblock %}
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-2 col-xm-2">
                 {% block navbarleft %}
                     {% include ":layout:Admin/modules/navbar_left.html.twig" %}
                 {% endblock %}
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 col-sm-10 col-xm-10">
                 {% block body %}
                 {% endblock %}
             </div>
@@ -44,6 +44,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="{{ asset('js/script_admin.js') }}"></script>
+        <script src="{{ asset('js/tinymce.js') }}"></script>
 
     {% endblock %}
 </body>

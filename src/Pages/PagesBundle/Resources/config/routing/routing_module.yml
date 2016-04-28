@@ -1,0 +1,7 @@
+_modules:
+    path: /
+    defaults: {_controller:PagesBundle:ModuleAdmin:index}
+
+_modules_add:
+    path: /add
+    defaults : {_controller:PagesBundle:ModuleAdmin:add}

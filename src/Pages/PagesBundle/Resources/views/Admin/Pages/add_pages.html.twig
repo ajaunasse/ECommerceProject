@@ -1,0 +1,22 @@
+{% extends ":layout:Admin/layout_admin.html.twig" %}
+
+{% block body %}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Création d'une page</h2>
+        </div>
+        <div class="panel-body">
+            <h4>Ajouter une nouvelle adresse</h4>
+            <form action="{{ path('_delivery') }}" method="POST" {{ form_enctype(form) }}>
+                {{ form_widget(form) }}
+                <br>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+{% endblock %}
