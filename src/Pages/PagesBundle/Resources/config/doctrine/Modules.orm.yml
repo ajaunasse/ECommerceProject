@@ -1,0 +1,18 @@
+Pages\PagesBundle\Entity\Modules:
+    type: entity
+    table: null
+    repositoryClass: Pages\PagesBundle\Repository\ModulesRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '50'
+            unique: true
+        online:
+            type: boolean
+    lifecycleCallbacks: {  }
